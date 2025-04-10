@@ -1,0 +1,9 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  script: |
+    docker build -t us-central1-docker.pkg.dev/tomburke-gcf-source-repo/goreleaser-test/goreleaser-test:latest .
+  automapSubstitutions: true
+images:
+- 'us-central1-docker.pkg.dev/tomburke-gcf-source-repo/goreleaser-test/goreleaser-test:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
