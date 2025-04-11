@@ -15,7 +15,7 @@ git ls-remote --tags --sort=committerdate gh \
 | grep 'refs/tags/release/v' \
 | tr -d '^{}' \
 | uniq \
-| grep --invert-match '\-RC' \
+| grep --invert-match '\-rc' \
 | tail -2 \
 | perl -p -e 's;refs/tags/(.*);$1;' \
 > /tmp/release_tags.txt
