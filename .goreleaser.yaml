@@ -1,0 +1,50 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+before:
+  hooks:
+    - source release_env
+
+changelog:
+  disable: false
+  use: github
+  format: "{{.SHA}}: {{.Message}} (@{{.AuthorUsername}})"
+  abbrev: 0
+  sort: asc
+  groups:
+    - title: "Breaking Changes"
+      regexp: '^.*?BREAKING CHANGE(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: Features
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: "Bug fixes"
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: Others
+      order: 999
+  filters:
+    include:
+      - "^feat:"
+      - "^fix:"
+      - "^BREAKING CHANGE:"
+
+release:
+  github:
+    owner: thomasmburke
+    name: goreleaser-test
+  draft: false
+  use_existing_draft: false
+  replace_existing_artifacts: false
+  prerelease: auto
+  skip_upload: true
+  disable: false
+  header: |
+    ## What's Changed
