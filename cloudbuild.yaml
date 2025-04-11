@@ -6,6 +6,7 @@ steps:
 - name: goreleaser/goreleaser
   script: |
     #!/usr/bin/env bash
+    git describe --tags --abbrev=0 HEAD
     goreleaser release --clean --verbose
   secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
