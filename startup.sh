@@ -12,7 +12,7 @@ git pull gh main
 
 git ls-remote --tags --sort=committerdate gh \
 | cut -f2 \
-| grep 'refs/tags/release/v' \
+| grep 'refs/tags/v' \
 | tr -d '^{}' \
 | uniq \
 | grep --invert-match '\-rc' \

@@ -8,6 +8,9 @@
 
 version: 2
 
+builds:
+  skip: true
+
 changelog:
   disable: false
   use: github
