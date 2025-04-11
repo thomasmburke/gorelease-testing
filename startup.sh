@@ -5,6 +5,8 @@ set -x
 git config --global user.name "git"
 git config --global user.password "${GITHUB_TOKEN}"
 
+git remote add origin https://git:${GITHUB_TOKEN}@github.com/thomasmburke/gorelease-testing.git
+
 git ls-remote --tags origin \
 | cut -f2 \
 | grep 'refs/tags/release/v' \
