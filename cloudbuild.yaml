@@ -3,11 +3,11 @@ steps:
   entrypoint: 'bash'
   args: ['startup.sh']
   secretEnv: ['GITHUB_TOKEN']
-- name: goreleaser/goreleaser
+- name: goreleaser/goreleaser:v2.8.0
   script: |
     #!/usr/bin/env bash
     source /tmp/release_env
-    goreleaser release --clean --verbose
+    exec env goreleaser release --clean --verbose
   secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
   secretManager:
