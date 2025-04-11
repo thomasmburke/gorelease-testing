@@ -25,6 +25,5 @@ GORELEASER_PREVIOUS_TAG=$(head -1 /github_assets/release_tags.txt)
 
 echo "export GORELEASER_CURRENT_TAG=$GORELEASER_CURRENT_TAG" >> /github_assets/release_env
 echo "export GORELEASER_PREVIOUS_TAG=$GORELEASER_PREVIOUS_TAG" >> /github_assets/release_env
-echo "export GITHUB_TOKEN=$GITHUB_TOKEN" >> /github_assets/release_env
 
 cat -n /github_assets/release_env
