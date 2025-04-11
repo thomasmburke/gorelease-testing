@@ -2,11 +2,11 @@ steps:
 - name: gcr.io/cloud-builders/git
   entrypoint: 'bash'
   args: ['startup.sh']
+  secretEnv: ['GITHUB_TOKEN']
 - name: goreleaser/goreleaser
   script: |
     #!/usr/bin/env bash
-    ls -la
-    /goreleaser release --clean --verbose
+    goreleaser release --clean --verbose
   secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
   secretManager:
