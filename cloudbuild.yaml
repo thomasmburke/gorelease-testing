@@ -11,7 +11,7 @@ steps:
   secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
   secretManager:
-  - versionName: projects/tomburke-gcf-source-repo/secrets/GITHUB_TOKEN/versions/1
+  - versionName: projects/tomburke-gcf-source-repo/secrets/GITHUB_TOKEN/versions/2
     env: 'GITHUB_TOKEN'
 options:
   logging: CLOUD_LOGGING_ONLY
