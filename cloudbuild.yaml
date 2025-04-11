@@ -6,7 +6,7 @@ steps:
 - name: goreleaser/goreleaser:latest
   script: |
     #!/usr/bin/env bash
-    export GODEBUG='http2debug=1'
+    export GODEBUG='http2debug=2'
     source /github_assets/release_env
     exec env goreleaser release --clean --verbose
 availableSecrets:
