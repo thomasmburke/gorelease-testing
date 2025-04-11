@@ -48,5 +48,3 @@ release:
   prerelease: auto
   skip_upload: true
   disable: false
-  header: |
-    ## What's Changed
