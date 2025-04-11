@@ -18,13 +18,13 @@ git ls-remote --tags --sort=committerdate gh \
 | grep --invert-match '\-rc' \
 | tail -2 \
 | perl -p -e 's;refs/tags/(.*);$1;' \
-> /workspace/release_tags.txt
+> /github_assets/release_tags.txt
 
-GORELEASER_CURRENT_TAG=$(tail -1 /workspace/release_tags.txt)
-GORELEASER_PREVIOUS_TAG=$(head -1 /workspace/release_tags.txt)
+GORELEASER_CURRENT_TAG=$(tail -1 /github_assets/release_tags.txt)
+GORELEASER_PREVIOUS_TAG=$(head -1 /github_assets/release_tags.txt)
 
-echo "export GORELEASER_CURRENT_TAG=$GORELEASER_CURRENT_TAG" >> /workspace/release_env
-echo "export GORELEASER_PREVIOUS_TAG=$GORELEASER_PREVIOUS_TAG" >> /workspace/release_env
-echo "export GITHUB_TOKEN=$GITHUB_TOKEN" >> /workspace/release_env
+echo "export GORELEASER_CURRENT_TAG=$GORELEASER_CURRENT_TAG" >> /github_assets/release_env
+echo "export GORELEASER_PREVIOUS_TAG=$GORELEASER_PREVIOUS_TAG" >> /github_assets/release_env
+echo "export GITHUB_TOKEN=$GITHUB_TOKEN" >> /github_assets/release_env
 
-cat -n /workspace/release_env
+cat -n /github_assets/release_env

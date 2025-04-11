@@ -3,10 +3,10 @@ steps:
   entrypoint: 'bash'
   args: ['startup.sh']
   secretEnv: ['GITHUB_TOKEN']
-- name: goreleaser/goreleaser:v2.8.0
+- name: goreleaser/goreleaser:latest
   script: |
     #!/usr/bin/env bash
-    source /workspace/release_env
+    source /github_assets/release_env
     exec env goreleaser release --clean --verbose
   secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
@@ -15,3 +15,6 @@ availableSecrets:
     env: 'GITHUB_TOKEN'
 options:
   logging: CLOUD_LOGGING_ONLY
+  volumes:
+  - name: 'github-assets'
+    path: '/github_assets'
