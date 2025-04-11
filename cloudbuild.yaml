@@ -3,7 +3,7 @@ steps:
   entrypoint: 'bash'
   args: ['startup.sh']
 - name: goreleaser/goreleaser
-  script: | 
+  script: |
   #!/usr/bin/env bash
   /goreleaser release --clean --verbose
 availableSecrets:
