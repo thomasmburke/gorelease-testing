@@ -10,11 +10,10 @@ git remote add gh https://git:${GITHUB_TOKEN}@github.com/thomasmburke/gorelease-
 git fetch --tags gh
 git pull gh main
 
-git ls-remote --tags gh \
+git ls-remote --tags --sort=committerdate gh \
 | cut -f2 \
 | grep 'refs/tags/release/v' \
 | tr -d '^{}' \
-| sort \
 | uniq \
 | grep --invert-match '\-RC' \
 | tail -2 \
