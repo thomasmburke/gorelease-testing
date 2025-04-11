@@ -11,7 +11,7 @@ steps:
     exec env goreleaser release --clean --verbose
 availableSecrets:
   secretManager:
-  - versionName: projects/tomburke-gcf-source-repo/secrets/GITHUB_TOKEN/versions/2
+  - versionName: projects/tomburke-gcf-source-repo/secrets/GITHUB_TOKEN/versions/3
     env: 'GITHUB_TOKEN'
 options:
   logging: CLOUD_LOGGING_ONLY
