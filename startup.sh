@@ -10,18 +10,39 @@ git remote add gh https://git:${GITHUB_TOKEN}@github.com/thomasmburke/gorelease-
 git fetch --tags gh
 git pull gh main
 
-git ls-remote --tags --sort=committerdate gh \
-| cut -f2 \
-| grep 'refs/tags/v' \
-| tr -d '^{}' \
-| uniq \
-| grep --invert-match '\-rc' \
-| tail -2 \
-| perl -p -e 's;refs/tags/(.*);$1;' \
-> /github_assets/release_tags.txt
+# Get all tag names, sorted newest first
+all_tags_sorted_newest_first=$(git ls-remote --tags --sort=-committerdate gh \
+  | cut -f2 \
+  | grep 'refs/tags/v' \
+  | tr -d '^{}' \
+  | uniq \
+  | sed 's;refs/tags/;;')
 
-GORELEASER_CURRENT_TAG=$(tail -1 /github_assets/release_tags.txt)
-GORELEASER_PREVIOUS_TAG=$(head -1 /github_assets/release_tags.txt)
+# Get the absolute latest tag (the first one in the sorted list)
+GORELEASER_CURRENT_TAG=$(echo "$all_tags_sorted_newest_first" | head -n 1)
+
+# Filter out RC tags to get only non-RC tags, sorted newest first
+stable_tags_sorted_newest_first=$(echo "$all_tags_sorted_newest_first" | grep -v -- '-rc')
+
+# Get the latest non-RC tag
+latest_stable_tag=$(echo "$stable_tags_sorted_newest_first" | head -n 1)
+
+# Get the second latest non-RC tag (previous stable release)
+# Use sed -n '2p' to get the second line only. Handles cases with 0 or 1 non-RC tag gracefully (outputs nothing).
+previous_stable_tag=$(echo "$stable_tags_sorted_newest_first" | sed -n '2p')
+
+# --- Determine PREVIOUS tag ---
+
+GORELEASER_PREVIOUS_TAG="" 
+
+# Check if the latest tag is an RC tag
+if [[ "$latest_tag" == *-rc* ]]; then
+  # Latest is an RC, so the previous tag should be the latest stable release
+  GORELEASER_PREVIOUS_TAG="$latest_stable_tag"
+else
+  # Latest is a stable release, so the previous tag should be the previous stable release
+  GORELEASER_PREVIOUS_TAG="$previous_stable_tag"
+fi
 
 echo "export GORELEASER_CURRENT_TAG=$GORELEASER_CURRENT_TAG" >> /github_assets/release_env
 echo "export GORELEASER_PREVIOUS_TAG=$GORELEASER_PREVIOUS_TAG" >> /github_assets/release_env
