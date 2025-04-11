@@ -21,13 +21,12 @@ all_tags_sorted_newest_first=$(git ls-remote --tags --sort=-committerdate gh \
 # Get the absolute latest tag (the first one in the sorted list)
 GORELEASER_CURRENT_TAG=$(echo "$all_tags_sorted_newest_first" | head -n 1)
 
-# Filter out RC tags to get only non-RC tags, sorted newest first
+# Filter out RC tags to get only non -rc tags
 stable_tags_sorted_newest_first=$(echo "$all_tags_sorted_newest_first" | grep -v -- '-rc')
 
-# Get the latest non-RC tag
 latest_stable_tag=$(echo "$stable_tags_sorted_newest_first" | head -n 1)
 
-# Get the second latest non-RC tag (previous stable release)
+# Get the second latest stable tag (previous stable tag)
 # Use sed -n '2p' to get the second line only. Handles cases with 0 or 1 non-RC tag gracefully (outputs nothing).
 previous_stable_tag=$(echo "$stable_tags_sorted_newest_first" | sed -n '2p')
 
@@ -36,7 +35,7 @@ previous_stable_tag=$(echo "$stable_tags_sorted_newest_first" | sed -n '2p')
 GORELEASER_PREVIOUS_TAG="" 
 
 # Check if the latest tag is an RC tag
-if [[ "$latest_tag" == *-rc* ]]; then
+if [[ "$GORELEASER_CURRENT_TAG" == *-rc* ]]; then
   # Latest is an RC, so the previous tag should be the latest stable release
   GORELEASER_PREVIOUS_TAG="$latest_stable_tag"
 else
