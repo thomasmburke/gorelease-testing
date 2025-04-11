@@ -6,6 +6,7 @@ steps:
   script: |
     #!/usr/bin/env bash
     /goreleaser release --clean --verbose
+  secretEnv: ['GITHUB_TOKEN']
 availableSecrets:
   secretManager:
   - versionName: projects/tomburke-gcf-source-repo/secrets/GITHUB_TOKEN/versions/1
