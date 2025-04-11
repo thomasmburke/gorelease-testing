@@ -3,7 +3,7 @@ steps:
   entrypoint: 'bash'
   args: ['startup.sh']
   secretEnv: ['GITHUB_TOKEN']
-- name: goreleaser/goreleaser:latest
+- name: goreleaser/goreleaser:v2.7.0
   script: |
     #!/usr/bin/env bash
     export GODEBUG='http2debug=2'
