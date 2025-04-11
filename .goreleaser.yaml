@@ -8,10 +8,6 @@
 
 version: 2
 
-before:
-  hooks:
-    - source release_env
-
 changelog:
   disable: false
   use: github
