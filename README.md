@@ -1,2 +1,2 @@
 # gorelease-testing
-test
+test non rc
